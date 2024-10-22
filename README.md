@@ -1,49 +1,118 @@
-# T20 Cricket Score Prediction Model
+# IPL Score Prediction Model
 
-### Overview
+## Project Overview
+This repository contains an IPL score prediction model built using machine learning techniques. The objective is to predict the final score of an IPL team based on match conditions such as overs played, wickets fallen, and runs scored. Multiple regression algorithms like **Random Forest**, **XGBoost**, **Decision Tree**, and more are used to build and evaluate the model.
 
-This project builds an IPL score prediction model using various machine learning techniques. The model predicts the total score of a team based on match conditions like overs, wickets, and runs. It utilizes popular regression algorithms such as Random Forest, XGBoost, Decision Tree, and more. The dataset used for training contains IPL match data, and Exploratory Data Analysis (EDA) is performed to better understand the features.
+---
 
-### Project Structure
+## Table of Contents
+1. [Installation](#installation)
+2. [Project Structure](#project-structure)
+3. [Data Preprocessing](#data-preprocessing)
+4. [Model Training](#model-training)
+5. [Evaluation Metrics](#evaluation-metrics)
+6. [Usage](#usage)
+7. [Results](#results)
+8. [Future Enhancements](#future-enhancements)
+9. [Contributors](#contributors)
 
-#### 1) Data Loading and Exploration
+---
 
-   The IPL dataset (ipl_data.csv) is loaded and explored using basic Pandas functions to check for missing values, datatype, and unique values.
+## Installation
 
-#### 2) Exploratory Data Analysis (EDA)
+To run this project locally, follow these steps:
 
- - Visualizations for wickets and runs distribution using Seaborn.
- - Heatmap displaying correlation between numerical features.
+1. Clone the repository:
+   ```bash
+       git clone https://github.com/username/ipl-score-prediction.git
 
-#### 3) Data Cleaning
+2. Install the required dependencies
 
-- Unnecessary columns such as mid, date, venue, and others are removed.
-- Filtering to only include consistent teams.
-- Removal of the first 5 overs of every match, as they do not provide significant insight for prediction.
+       pip install numpy pandas seaborn matplotlib scikit-learn xgboost
 
-#### 4) Data Preprocessing and Encoding
+3. Run the Python scripts provided in the repository.
 
-- Label encoding is performed on categorical columns (bat_team and bowl_team).
-- One-hot encoding is applied to prepare the dataset for model training.
+## Project Structure
 
-#### 5) Model Building
+- **data/**: Contains the IPL dataset (`ipl_data.csv`).
+- **notebooks/**: Jupyter notebooks for data exploration and model training.
+- **models/**: Serialized machine learning models saved using Pickle.
+- **scripts/**: Python scripts for model training, evaluation, and prediction.
+- **README.md**: Project documentation.
 
-#### Five machine learning models are trained:
-- Decision Tree Regressor
-- Linear Regression
-- Random Forest Regressor
-- Support Vector Regressor
-- XGBoost Regressor
+---
 
-#### 6) Model Evaluation
+## Data Preprocessing
 
-  Each model is evaluated using Mean Squared Error (MSE), Mean Absolute Error (MAE), and Root Mean Squared Error (RMSE) to measure prediction performance.
+- **Label Encoding**: Converts categorical variables like `bat_team` and `bowl_team` into numerical values using `LabelEncoder` from `sklearn`.
 
-#### 7) Prediction Function
+```python
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+ipl_df['bat_team'] = le.fit_transform(ipl_df['bat_team'])
+ipl_df['bowl_team'] = le.fit_transform(ipl_df['bowl_team'])
+```
 
-  A function score_predict is created to predict the final score of a match based on inputs such as batting team, bowling team, runs, wickets, overs, and runs/wickets in the last 5 overs.
+## Model Training
 
-#### 8) Model Exporting
+The project includes training five different models:
 
-  The best-performing model, Random Forest, is saved using Pickle for future use.
+- **Linear Regression**
+- **Decision Tree Regressor**
+- **Random Forest Regressor**
+- **Support Vector Regressor**
+- **XGBoost Regressor**
+
+Each model is trained using `train_test_split` to divide the dataset into training and testing sets. The best model is selected based on evaluation metrics like **MSE**, **MAE**, and **RMSE**.
+
+---
+
+## Evaluation Metrics
+
+The following metrics are used to evaluate the model's performance:
+
+- **Mean Squared Error (MSE)**
+- **Mean Absolute Error (MAE)**
+- **Root Mean Squared Error (RMSE)**
+
+Example:
+
+```python
+from sklearn.metrics import mean_squared_error
+mse = mean_squared_error(test_labels, predictions)
+```
+## Usage
+
+### Train the Model:
+
+```python
+from sklearn.ensemble import RandomForestRegressor
+rf = RandomForestRegressor()
+rf.fit(train_features, train_labels)
+```
+
+### Predict Scores:
+Use the `score_predict` function with match details to predict the final score:
+
+```python
+predicted_score = score_predict('Mumbai Indians', 'Chennai Super Kings', 90, 3, 12, 30, 1)
+```
+
+### Export Model:
+To save the trained model for future use, you can export it using Pickle:
+
+```python
+import pickle
+filename = 'ipl_score_prediction.pkl'
+pickle.dump(rf, open(filename, 'wb'))
+```
+
+## Conclusion
+The IPL Score Prediction Model effectively leverages machine learning algorithms to predict cricket match scores based on historical data. By employing various models such as Linear Regression, Decision Tree, Random Forest, Support Vector Regressor, and XGBoost, we are able to achieve reliable predictions that can assist analysts, teams, and fans in understanding potential match outcomes.
+
+## Future Scope
+- **Feature Enhancement**: Integrate additional features such as player form, weather conditions, and venue statistics to improve prediction accuracy.
+- **Deep Learning Models**: Explore the implementation of deep learning algorithms to capture more complex patterns in the data for enhanced predictions.
+- **Real-Time Predictions**: Develop a web-based interface or API to facilitate real-time predictions during live matches.
+- **Comprehensive Analytics**: Expand the model to provide detailed analytics and insights, such as player performance and team strategies.
 
