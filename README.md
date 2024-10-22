@@ -13,8 +13,7 @@ This repository contains an IPL score prediction model built using machine learn
 5. [Evaluation Metrics](#evaluation-metrics)
 6. [Usage](#usage)
 7. [Results](#results)
-8. [Future Enhancements](#future-enhancements)
-9. [Contributors](#contributors)
+8. [Future Scope](#future-enhancements)
 
 ---
 
