@@ -8,7 +8,7 @@ This project builds an IPL score prediction model using various machine learning
 
 1) Data Loading and Exploration
 
- - The IPL dataset (ipl_data.csv) is loaded and explored using basic Pandas functions to check for missing values, datatype, and unique values.
+   The IPL dataset (ipl_data.csv) is loaded and explored using basic Pandas functions to check for missing values, datatype, and unique values.
 
 2) Exploratory Data Analysis (EDA)
 
